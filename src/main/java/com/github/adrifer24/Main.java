@@ -8,33 +8,26 @@ import java.io.File;
 
 public class Main {
     public static void main(String[] args) {
-        String token = "MTA0OTczNzg0MjUzODA1MzY4NA.GbtyxF.gI5oDGQs6cZJfuLkFQUPgJtC2xLsy9LrzzlZxo";
+        String token = ""; // El token
         DiscordApi api = new DiscordApiBuilder().setToken(token).setAllIntents().login().join();
 
-        System.out.println("You can invite the bot by using the following url: " + api.createBotInvite());
+        System.out.println("Puedes invitar el bot a tu servidor con el enlace: " + api.createBotInvite());
 
         api.addMessageCreateListener(event -> {
             if (event.isServerMessage()) {
-                if (event.getServer().toString().contains("patata ;")) {
-                    if (event.getMessageContent().contains("!decir")) {
-                        String repetir = event.getMessageContent().substring(7);
-                        event.getChannel().sendMessage(repetir);
-                        event.getMessage().delete();
-                    }
+
+                if (event.getMessageContent().contains("!decir")) {
+                    String repetir = event.getMessageContent().substring(7);
+                    event.getChannel().sendMessage(repetir);
+                    event.getMessage().delete();
                 }
 
-                else {
-                    if (event.getMessageContent().contains("!decir")) {
-                        String repetir = event.getMessageContent().substring(7);
-                        event.getChannel().sendMessage(repetir);
-                        event.getMessage().delete();;
-                    }
-                    else if (event.getMessageContent().contains("!salchicha")) {
-                        File file = new File("hola.txt");
-                        event.getChannel().sendMessage(file);
-                    }
+                else if (event.getMessageContent().contains("!salchicha")) {
+                    int numero_aleatorio = (int) (Math.random() * 30 + 1);
+                    //File file = new File("D:\\perros\\"+numero_aleatorio+".jpg");
+                    File file = new File("/var/imgs/"+numero_aleatorio+".jpg");
+                    event.getChannel().sendMessage(file);
                 }
-
             }
         });
     }
